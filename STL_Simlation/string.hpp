@@ -32,11 +32,12 @@ namespace syu_str
 
         // 拷贝构造函数，根据已有的字符串对象创建新的对象
         string(const string& s)
+            : _size(0)
+            , _capacity(0)
+            , _str(nullptr)
         {
-            string tmp = new char[strlen(s._str) + 1];
-            _size = s._size;
-            _capacity = s._capacity;
-            strcpy(_str, s._str);
+            string tmp(s.c_str());
+            swap(tmp);
         }
 
         // 赋值运算符重载，将一个字符串对象的内容赋值给另一个对象
@@ -342,3 +343,68 @@ namespace syu_str
         return _cin;
     }
 };
+
+
+namespace Test_string
+{
+    using namespace syu_str;
+
+    void test_constructors() 
+    {
+        syu_str::string s1("Hello");
+        syu_str::string s2(s1);
+
+        assert(s1 == s2);
+        assert(s1.size() == s2.size());
+        assert(s1.capacity() == s2.capacity());
+        assert(strcmp(s1.c_str(), s2.c_str()) == 0);
+    }
+
+    void test_assignment_operator() 
+    {
+        syu_str::string s1("Hello");
+        syu_str::string s2;
+        s2 = s1;
+
+        assert(s1 == s2);
+        assert(s1.size() == s2.size());
+        assert(s1.capacity() == s2.capacity());
+        assert(strcmp(s1.c_str(), s2.c_str()) == 0);
+    }
+
+    void test_methods() 
+    {
+        syu_str::string s("Hello, World!");
+
+        assert(s.size() == 13);
+        assert(s.capacity() >= 13);
+        assert(strcmp(s.c_str(), "Hello, World!") == 0);
+    }
+
+    void test_equality_operator() 
+    {
+        syu_str::string s1("Hello");
+        syu_str::string s2("Hello");
+        syu_str::string s3("World");
+
+        assert(s1 == s2);
+        assert(!(s1 == s3));
+    }
+
+    void callTestFunction()
+    {
+        test_constructors();
+        std::cout << "Test: test_assignment_operator passed!" << std::endl;
+
+        test_assignment_operator();
+        std::cout << "Test: test_assignment_operator passed!" << std::endl;
+
+        test_methods();
+        std::cout << "Test: test_methods passed!" << std::endl;
+
+        test_equality_operator();
+        std::cout << "Test: test_equality_operator passed!" << std::endl;
+
+        std::cout << "All string tests passed!" << std::endl;
+    }
+}
