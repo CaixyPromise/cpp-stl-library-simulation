@@ -1,19 +1,18 @@
+#ifndef REVERSE_ITERATOR_HPP
+#define REVERSE_ITERATOR_HPP
+
 #include "common.hpp"
 #include "iterator_traits.hpp"
 
-
 namespace syu_reverse
 {
-
-
-
 	template<class Iterator>
 	class Reverse_Iterator
 	{
 	private:
 		Iterator it_;
 		typedef IteratorTraits<Iterator> traits_type;
-	
+
 	private:
 		typedef Reverse_Iterator<Iterator> self;
 		typedef typename IteratorTraits<Iterator>::value_type value_type;
@@ -30,7 +29,7 @@ namespace syu_reverse
 			Iterator prev = it_;
 			return *--prev;
 		}
-		
+
 		Pointer operator->()
 		{
 			return &operator*();
@@ -70,3 +69,5 @@ namespace syu_reverse
 
 	};
 }
+
+#endif // REVERSE_ITERATOR_HPP

@@ -1,3 +1,6 @@
+
+#ifndef TEST_H
+#define TEST_H
 #pragma once
 
 
@@ -23,3 +26,4 @@ void test_list()
 	Test_list::callTestFunction();
 }
 
+#endif // TEST_H

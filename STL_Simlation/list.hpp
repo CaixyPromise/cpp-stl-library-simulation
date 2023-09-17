@@ -1,6 +1,6 @@
+#ifndef LIST_HPP
+#define LIST_HPP
 #include "common.hpp"
-
-
 
 namespace syu_list
 {
@@ -484,3 +484,5 @@ namespace Test_list
 		output_log("list", "All list tests passed!");
 	}
 }
+
+#endif // LIST_HPP

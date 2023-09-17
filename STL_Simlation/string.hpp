@@ -1,3 +1,6 @@
+#ifndef STRING_HPP
+#define STRING_HPP
+
 #include "common.hpp"
 
 
@@ -404,3 +407,5 @@ namespace Test_string
         output_log("string", "All string tests passed!");
     }
 }
+
+#endif // STRING_HPP
