@@ -4,7 +4,7 @@
 
 int main()
 {
-	test_string();
 	test_vector();
+	test_list();
 	return 0;
 }

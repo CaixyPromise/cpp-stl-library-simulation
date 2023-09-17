@@ -3,7 +3,8 @@
 
 #include "vector.hpp"
 #include "string.hpp"
-
+#include "list.hpp"
+//#include "reverse_iterator.hpp" 
 
 void test_string()
 {
@@ -15,3 +16,10 @@ void test_vector()
 {
 	Test_Vector::callTestFunction();
 }
+
+
+void test_list()
+{
+	Test_list::callTestFunction();
+}
+

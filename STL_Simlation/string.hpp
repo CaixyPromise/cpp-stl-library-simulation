@@ -1,8 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
-#pragma once
-#include <iostream>
-#include <assert.h>
-using namespace std;
+#include "common.hpp"
 
 
 namespace syu_str
@@ -394,17 +390,17 @@ namespace Test_string
     void callTestFunction()
     {
         test_constructors();
-        std::cout << "Test: test_assignment_operator passed!" << std::endl;
+        output_log("string", "test_assignment_operator passed!");
 
         test_assignment_operator();
-        std::cout << "Test: test_assignment_operator passed!" << std::endl;
+        output_log("string", "Test: test_assignment_operator passed!");
 
         test_methods();
-        std::cout << "Test: test_methods passed!" << std::endl;
+        output_log("string", "test_methods passed!");
 
         test_equality_operator();
-        std::cout << "Test: test_equality_operator passed!" << std::endl;
+        output_log("string", "test_equality_operator passed!");
 
-        std::cout << "All string tests passed!" << std::endl;
+        output_log("string", "All string tests passed!");
     }
 }

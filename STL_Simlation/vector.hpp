@@ -1,17 +1,19 @@
-#pragma once
-#include <iostream>
-#include <assert.h>
-using namespace std;
+#include "common.hpp"
+
 
 namespace syu_vec
 {
 	template<class T>
 	class vector
 	{
-	public:
+	private:
 		// Vector的迭代器是一个原生指针
 		typedef T* iterator;
 		typedef const T* const_iterator;
+
+		typedef Reverse_Iterator<iterator> reverse_iterator;
+		typedef Reverse_Iterator<const_iterator> const_reverse_iterator;
+
 	private:
 		iterator _start; // 指向数据块的开始
 		iterator _finish; // 指向有效数据的尾
@@ -27,6 +29,15 @@ namespace syu_vec
 			return _finish;
 		}
 
+		const_iterator begin() const
+		{
+			return _start;
+		}
+		const_iterator end() const
+		{
+			return _finish;
+		}
+
 		const_iterator cbegin() const
 		{
 			return _start;
@@ -34,6 +45,26 @@ namespace syu_vec
 		const_iterator cend() const
 		{
 			return _finish;
+		}
+
+		reverse_iterator rbegin()
+		{
+			return reverse_iterator(end());
+		}
+
+		reverse_iterator rend()
+		{
+			return reverse_iterator(begin());
+		}
+
+		const_reverse_iterator crbegin() const
+		{
+			return const_reverse_iterator(end());
+		}
+
+		const_reverse_iterator crend() const
+		{
+			return const_reverse_iterator(begin());
 		}
 
 		// construct and destroy
@@ -319,241 +350,76 @@ namespace Test_Vector
 		assert(*(v.cend() - 1) == 3);
 	}
 
+	void test_reverse_iterators()
+	{
+		vector<int> v;
+		for (int i = 0; i < 5; ++i)
+		{
+			v.push_back(i);
+		}
+
+		// 测试非const reverse_iterator
+		auto rit = v.rbegin();
+		auto rend = v.rend();
+
+		int expected_value = 4;
+		while (rit != rend)
+		{
+			int ref_val = *rit;
+			assert(ref_val == expected_value);
+			++rit;
+			--expected_value;
+		}
+
+		// 测试--和++操作符
+		--rit;
+		expected_value = 0;
+		while (rit != v.rbegin())
+		{
+			int ref_val = *rit;
+			assert(ref_val == expected_value);
+			--rit;
+			++expected_value;
+		}
+
+		// 测试 const_reverse_iterator
+		auto crit = v.crbegin();
+		auto crend = v.crend();
+
+		expected_value = 4;
+		while (crit != crend)
+		{
+			assert(*crit == expected_value);
+			++crit;
+			--expected_value;
+		}
+
+	}
+
 	void callTestFunction()
 	{
 		test_default_constructor_and_push_back();
-		std::cout << "Test: test_default_constructor_and_push_back passed!" << std::endl;
+		output_log("vector", "test_default_constructor_and_push_back passed!");
 
 		test_size_constructor();
-		std::cout << "Test: test_size_constructor passed!" << std::endl;
+		output_log("vector", "test_size_constructor passed!");
 
 		test_range_constructor();
-		std::cout << "Test: test_range_constructor passed!" << std::endl;
+		output_log("vector", "test_range_constructor passed!");
 
 		test_copy_constructor();
-		std::cout << "Test: test_copy_constructor passed!" << std::endl;
+		output_log("vector", "test_copy_constructor passed!");
 
 		test_assignment_operator();
-		std::cout << "Test: test_assignment_operator passed!" << std::endl;
+		output_log("vector", "test_assignment_operator passed!");
 
 		test_iterators();
-		std::cout << "Test: test_iterators passed!" << std::endl;
+		output_log("vector", "test_iterators passed!");
 
-		std::cout << "All vector tests passed!" << std::endl;
+		test_reverse_iterators();
+		output_log("vector", "test_reverse_iterators in vector passed!");
+
+		output_log("vector", "All vector tests passed!");
 		return;
 	}
 }
-
-
-/*
-#pragma once
-#include <iostream>
-#include <assert.h>
-
-namespace ContainerVc
-{
-	template<class T>
-	class vector
-	{
-	public:
-		typedef T* iterator;
-		typedef const T* const_iterator;
-
-		vector()
-			:_start(nullptr)
-			, _finish(nullptr)
-			, _endofstorage(nullptr)
-		{}
-
-		template <class InputIterator>
-		vector(InputIterator first, InputIterator last)
-			:_start(nullptr)
-			, _finish(nullptr)
-			, _endofstorage(nullptr)
-		{
-			while (first != last)
-			{
-				push_back(*first);
-				++first;
-			}
-		}
-
-		void swap(vector<T>& v)
-		{
-			std::swap(_start, v._start);
-			std::swap(_finish, v._finish);
-			std::swap(_endofstorage, v._endofstorage);
-		}
-
-		vector(const vector<T>& v)
-			:_start(nullptr)
-			, _finish(nullptr)
-			, _endofstorage(nullptr)
-		{
-			vector<T> tmp(v.begin(), v.end());
-			swap(tmp);
-		}
-
-		vector<T>& operator=(vector<T> v)
-		{
-			swap(v);
-			return *this;
-		}
-
-		~vector()
-		{
-			if (_start)
-			{
-				delete[] _start;
-				_start = _finish = _endofstorage = nullptr;
-			}
-		}
-
-		const_iterator begin() const
-		{
-			return _start;
-		}
-
-		const_iterator end() const
-		{
-			return _finish;
-		}
-
-		iterator begin()
-		{
-			return _start;
-		}
-
-		iterator end()
-		{
-			return _finish;
-		}
-
-		const T& operator[](size_t i) const
-		{
-			assert(i < size());
-			return _start[i];
-		}
-
-		T& operator[](size_t i)
-		{
-			assert(i < size());
-			return _start[i];
-		}
-
-		size_t size() const
-		{
-			return _finish - _start;
-		}
-
-		size_t capacity() const
-		{
-			return _endofstorage - _start;
-		}
-
-		void reserve(size_t n)
-		{
-			if (n > capacity())
-			{
-				size_t sz = size();
-				T* tmp = new T[n];
-				if (_start)
-				{
-					for (size_t i = 0; i < sz; ++i)
-					{
-						tmp[i] = _start[i];
-					}
-
-					delete[] _start;
-				}
-				_start = tmp;
-				_finish = _start + sz;
-				_endofstorage = _start + n;
-			}
-		}
-
-		void resize(size_t n, const T& val = T())
-		{
-			if (n < size())
-			{
-				_finish = _start + n;
-			}
-			else
-			{
-				if (n > capacity())
-				{
-					reserve(n);
-				}
-
-				while (_finish != _start + n)
-				{
-					*_finish = val;
-					++_finish;
-				}
-			}
-		}
-
-		iterator insert(iterator pos, const T& x)
-		{
-			assert(pos >= _start);
-			assert(pos <= _finish);
-
-			if (_finish == _endofstorage)
-			{
-				size_t len = pos - _start;
-				reserve(capacity() == 0 ? 4 : capacity() * 2);
-				pos = _start + len;
-			}
-
-			iterator end = _finish - 1;
-			while (end >= pos)
-			{
-				*(end + 1) = *end;
-				--end;
-			}
-			*pos = x;
-			++_finish;
-
-			return pos;
-		}
-
-		iterator erase(iterator pos)
-		{
-			assert(pos >= _start);
-			assert(pos < _finish);
-
-			iterator begin = pos + 1;
-			while (begin < _finish)
-			{
-				*(begin - 1) = *begin;
-				++begin;
-			}
-
-			--_finish;
-
-			return pos;
-		}
-
-		void push_back(const T& x)
-		{
-			if (_finish == _endofstorage)
-			{
-				reserve(capacity() == 0 ? 4 : capacity() * 2);
-			}
-			*_finish = x;
-			++_finish;
-		}
-
-		void pop_back()
-		{
-			assert(_finish > _start);
-
-			--_finish;
-		}
-	private:
-		iterator _start;
-		iterator _finish;
-		iterator _endofstorage;
-	};
-}
-*/
