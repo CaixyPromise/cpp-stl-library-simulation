@@ -39,6 +39,9 @@
     <ClInclude Include="stack.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="queue.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="test.cpp">

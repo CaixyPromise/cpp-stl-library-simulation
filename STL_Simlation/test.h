@@ -7,6 +7,7 @@
 #include "string.hpp"
 #include "list.hpp"
 #include "stack.hpp"
+#include "queue.hpp"
 //#include "reverse_iterator.hpp" 
 
 void test_string()
@@ -31,5 +32,9 @@ void test_stack()
 	Test_Stack::callTestFunction();
 }
 
+void test_queue()
+{
+	Test_Queue::callTestFunction();
+}
 
 #endif // TEST_H

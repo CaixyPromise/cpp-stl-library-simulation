@@ -22,6 +22,7 @@
     <ClInclude Include="common.hpp" />
     <ClInclude Include="iterator_traits.hpp" />
     <ClInclude Include="list.hpp" />
+    <ClInclude Include="queue.hpp" />
     <ClInclude Include="reverse_iterator.hpp" />
     <ClInclude Include="stack.hpp" />
     <ClInclude Include="test.h" />
