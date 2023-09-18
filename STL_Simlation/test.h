@@ -1,4 +1,3 @@
-
 #ifndef TEST_H
 #define TEST_H
 #pragma once
@@ -7,6 +6,7 @@
 #include "vector.hpp"
 #include "string.hpp"
 #include "list.hpp"
+#include "stack.hpp"
 //#include "reverse_iterator.hpp" 
 
 void test_string()
@@ -25,5 +25,11 @@ void test_list()
 {
 	Test_list::callTestFunction();
 }
+
+void test_stack()
+{
+	Test_Stack::callTestFunction();
+}
+
 
 #endif // TEST_H

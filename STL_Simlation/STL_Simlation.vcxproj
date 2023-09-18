@@ -23,6 +23,7 @@
     <ClInclude Include="iterator_traits.hpp" />
     <ClInclude Include="list.hpp" />
     <ClInclude Include="reverse_iterator.hpp" />
+    <ClInclude Include="stack.hpp" />
     <ClInclude Include="test.h" />
     <ClInclude Include="string.hpp" />
     <ClInclude Include="vector.hpp" />
