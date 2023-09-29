@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="algorithm.hpp" />
     <ClInclude Include="common.hpp" />
     <ClInclude Include="iterator_traits.hpp" />
     <ClInclude Include="list.hpp" />

@@ -8,6 +8,7 @@
 #include "list.hpp"
 #include "stack.hpp"
 #include "queue.hpp"
+#include "algorithm.hpp"
 //#include "reverse_iterator.hpp" 
 
 void test_string()
