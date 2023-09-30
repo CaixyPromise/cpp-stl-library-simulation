@@ -15,6 +15,9 @@ struct IteratorTraits
 	typedef typename Iterator::value_type value_type;	// 萃取迭代器指向元素的类型
 	typedef typename Iterator::Pointer    pointer;		// 萃取迭代器的指针类型
 	typedef typename Iterator::Reference  reference;	// 萃取迭代器的引用类型
+	typedef typename Iterator::difference_type difference_type;  // 萃取迭代器的差异类型
+	typedef typename Iterator::iterator_category iterator_category;  // 萃取迭代器的类别
+	IteratorTraits() = default;
 };
 
 // 针对原生指针的特化萃取
@@ -24,7 +27,8 @@ struct IteratorTraits<T*>
 	typedef T value_type;
 	typedef T* pointer;
 	typedef T& reference;
-
+	typedef std::ptrdiff_t difference_type;  // 对于原生指针，差异类型是ptrdiff_t
+	typedef std::random_access_iterator_tag iterator_category;  // 原生指针是随机访问迭代器
 	IteratorTraits() = default;
 };
 
@@ -35,6 +39,9 @@ struct IteratorTraits<const T*>
 	typedef T value_type;
 	typedef const T* pointer;
 	typedef const T& reference;
+	typedef std::ptrdiff_t difference_type;  
+	typedef std::random_access_iterator_tag iterator_category;  // 常量原生指针是随机访问迭代器
+	IteratorTraits() = default;
 };
 
 #endif // ITERATOR_TRAITS_HPP

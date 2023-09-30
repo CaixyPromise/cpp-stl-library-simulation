@@ -62,7 +62,8 @@ namespace syu_list
 		typedef Ref Reference;
 		typedef Ptr Pointer;
 		typedef T value_type;
-
+		typedef std::ptrdiff_t difference_type;
+		typedef std::bidirectional_iterator_tag iterator_category;
 		Node* _node;
 	public:
 		__list_iterator(Node* node)
@@ -287,8 +288,29 @@ namespace syu_list
 				erase(it++);
 			}
 		}
-	};
 
+		void reverse()
+		{
+			if (_head == nullptr || _head->_next == _head)
+				return; // 空链表或只有一个元素的链表
+
+			Node* curr = _head;
+			Node* temp = nullptr;
+
+			do {
+				temp = curr->_prev;  // 临时存储当前节点的prev指针
+				curr->_prev = curr->_next;  // 更新当前节点的prev指针
+				curr->_next = temp;  // 更新当前节点的next指针
+				curr = curr->_prev;  // 移动到原来的next节点
+			} while (curr != _head);
+
+			// 更新头尾节点
+			if (_head->_prev != nullptr) 
+			{
+				_head = _head->_prev;
+			}
+		}
+	};
 }
 
 

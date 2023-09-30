@@ -2,13 +2,13 @@
 #define TEST_H
 #pragma once
 
+#include "algorithm.hpp"
 
 #include "vector.hpp"
 #include "string.hpp"
 #include "list.hpp"
 #include "stack.hpp"
 #include "queue.hpp"
-#include "algorithm.hpp"
 //#include "reverse_iterator.hpp" 
 
 void test_string()

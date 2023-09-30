@@ -396,6 +396,12 @@ namespace Test_Vector
 
 	}
 
+	void test_Algorithm()
+	{
+
+	}
+
+
 	void callTestFunction()
 	{
 		test_default_constructor_and_push_back();
